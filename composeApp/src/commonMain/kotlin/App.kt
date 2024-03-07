@@ -1,37 +1,38 @@
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import dev.icerock.moko.mvvm.compose.getViewModel
+import dev.icerock.moko.mvvm.compose.viewModelFactory
 
-import cointracker.composeapp.generated.resources.Res
-import cointracker.composeapp.generated.resources.compose_multiplatform
-
-@OptIn(ExperimentalResourceApi::class)
 @Composable
-@Preview
-fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
-        }
+fun BirdAppTheme(
+    content: @Composable () -> Unit
+) {
+    MaterialTheme(
+        colors = MaterialTheme.colors.copy(primary = Color.Black),
+        shapes = MaterialTheme.shapes.copy(
+            small = RoundedCornerShape(0.dp),
+            medium = RoundedCornerShape(0.dp),
+            large = RoundedCornerShape(0.dp)
+        )
+    ) {
+        content()
     }
+}
+
+@Composable
+fun App() {
+    BirdAppTheme {
+        val coinListViewModel = getViewModel(Unit, viewModelFactory { CoinListViewModel() })
+        val uiState by coinListViewModel.uiState.collectAsState()
+        LaunchedEffect(coinListViewModel) { coinListViewModel.updateCoins() }
+        CoinListScreen(uiState, onCoinSelected = {  })
+    }
+}
+
+@Composable
+fun CoinListScreen(uiState: CoinListUiState, onCoinSelected: (id: String) -> Unit) {
+    println("${uiState.coins.toString()}")
 }
