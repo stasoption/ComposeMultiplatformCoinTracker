@@ -1,22 +1,26 @@
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun BirdAppTheme(
+fun CoinTrackerAppTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colors = MaterialTheme.colors.copy(primary = Color.Black),
+        colors = MaterialTheme.colors.copy(primary = Color.Blue, secondary = Color.Yellow),
         shapes = MaterialTheme.shapes.copy(
             small = RoundedCornerShape(0.dp),
             medium = RoundedCornerShape(0.dp),
@@ -29,7 +33,7 @@ fun BirdAppTheme(
 
 @Composable
 fun App() {
-    BirdAppTheme {
+    CoinTrackerAppTheme {
         val coinListViewModel = getViewModel(Unit, viewModelFactory { CoinListViewModel() })
         val uiState by coinListViewModel.uiState.collectAsState()
         LaunchedEffect(coinListViewModel) { coinListViewModel.updateCoins() }
@@ -39,7 +43,6 @@ fun App() {
 
 @Composable
 fun CoinListScreen(uiState: CoinListUiState, onCoinSelected: (id: String) -> Unit) {
-    println("${uiState.coins.toString()}")
 
     Column(
         Modifier.fillMaxSize(),
@@ -47,7 +50,16 @@ fun CoinListScreen(uiState: CoinListUiState, onCoinSelected: (id: String) -> Uni
         verticalArrangement = Arrangement.Top,
     ) {
 
-        Text(text = "CoinTracker")
+        TopAppBar(
+            title = {
+                Text(
+                    text = "CoinTracker",
+                    color = MaterialTheme.colors.secondary,
+                    fontSize = 18.sp
+                )
+            },
+            modifier = Modifier.background(MaterialTheme.colors.primary)
+        )
 
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(5.dp),
@@ -69,4 +81,10 @@ fun CoinItem(coin: Coin) {
         ) {
         Text(text = "${coin.name}: $${coin.priceUsd}")
     }
+}
+
+@Preview
+@Composable
+private fun CoinListScreenPreview() {
+    CoinListScreen(CoinListUiState(listOf())) {}
 }
