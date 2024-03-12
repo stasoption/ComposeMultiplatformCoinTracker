@@ -42,7 +42,6 @@ class CoinListViewModel: ViewModel() {
     }
     
     private suspend fun getCoins(): CoinListResponse = httpClient
-        .webSocket {  }
         .get("https://api.coincap.io/v2/assets")
         .body<CoinListResponse>()
 }
