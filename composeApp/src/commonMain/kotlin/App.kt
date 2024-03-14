@@ -1,14 +1,21 @@
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.icerock.moko.mvvm.compose.getViewModel
@@ -60,13 +67,10 @@ fun CoinListScreen(uiState: CoinListUiState, onCoinSelected: (id: String) -> Uni
             modifier = Modifier.background(MaterialTheme.colors.primary)
         )
 
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(5.dp),
-            modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)
-        ) {
+        LazyColumn( verticalArrangement = Arrangement.spacedBy(1.dp)) {
             items(
                 count = uiState.coins.size,
-                itemContent = { CoinItem(uiState.coins[it]) }
+                itemContent = { CoinItem(uiState.coins[it]) },
             )
         }
     }
@@ -74,12 +78,51 @@ fun CoinListScreen(uiState: CoinListUiState, onCoinSelected: (id: String) -> Uni
 
 @Composable
 fun CoinItem(coin: Coin) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(5.dp),
-        modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
-        ) {
-        Text(text = "${coin.name}: $${coin.priceUsd}")
-    }
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        content = {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp, horizontal = 16.dp),
+                verticalAlignment = CenterVertically
+            ) {
+                Text(
+                    text = "${coin.name}",
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold,
+                )
+
+                Text(
+                    text = " (${coin.symbol})",
+                    fontSize = 16.sp,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.Normal
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                val indicator = if (coin.isPercent24HrUp) UpPercentIndicator() else DownPercentIndicator()
+                val indicatorColor = if (coin.isPercent24HrUp) Color.Green else Color.Red
+                Box(modifier = Modifier.size(16.dp).clip(shape = indicator).background(indicatorColor))
+
+                Text(
+                    text = " ${coin.formattedPercent}%",
+                    fontSize = 14.sp,
+                    color = indicatorColor,
+                    fontWeight = FontWeight.Normal
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Text(
+                    text = "$${coin.formattedPrice}",
+                    fontSize = 14.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Normal
+                )
+            }
+        }
+    )
 }
 
 @Preview
