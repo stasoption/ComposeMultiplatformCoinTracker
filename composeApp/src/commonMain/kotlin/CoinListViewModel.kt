@@ -2,7 +2,7 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.plugins.websocket.*
+import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.delay
@@ -16,8 +16,14 @@ data class CoinListUiState(
 )
 
 class CoinListViewModel: ViewModel() {
-    
-    private val httpClient = HttpClient() { install(ContentNegotiation) { json() } }
+
+    private val httpClient = HttpClient() {
+        install(ContentNegotiation) { json() }
+        install(Logging) {
+            logger = Logger.SIMPLE
+            level = LogLevel.ALL
+        }
+    }
 
     private val _uiState = MutableStateFlow(CoinListUiState(emptyList()))
     
@@ -25,6 +31,7 @@ class CoinListViewModel: ViewModel() {
 
     val uiState = _uiState.asStateFlow()
     
+
     override fun onCleared() {
         isUpdating = false
         httpClient.close()
@@ -40,8 +47,13 @@ class CoinListViewModel: ViewModel() {
             delay(1000L)
         }
     }
-    
+
     private suspend fun getCoins(): CoinListResponse = httpClient
         .get("https://api.coincap.io/v2/assets")
         .body<CoinListResponse>()
+
+//    fun subscribeCoins() = viewModelScope.launch {
+//        httpClient.webSocket("wss://ws.coincap.io/prices?assets=ALL") {
+//        }
+//    }
 }

@@ -43,7 +43,6 @@ fun App() {
 
 @Composable
 fun CoinListScreen(uiState: CoinListUiState, onCoinSelected: (id: String) -> Unit) {
-
     Column(
         Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,

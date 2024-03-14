@@ -2,8 +2,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CoinListResponse(
-    val timestamp: Long,
-    val data: List<Coin>
+    val data: List<Coin>,
+    val timestamp: Long?,
 )
 
 @Serializable
@@ -21,3 +21,4 @@ data class Coin(
     val vwap24Hr: String?,
     val explorer: String?
 )
+
