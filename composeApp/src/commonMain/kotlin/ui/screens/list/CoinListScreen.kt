@@ -25,7 +25,7 @@ fun CoinListScreen(
     LaunchedEffect(viewModel) { viewModel.updateCoins() }
 
     Column(
-        Modifier.fillMaxSize().background(MaterialTheme.colors.primary),
+        Modifier.fillMaxSize().background(MaterialTheme.colors.secondary),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
     ) {
@@ -39,32 +39,35 @@ fun CoinListScreen(
             }
         )
 
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(1.dp)
-        ) {
-            items(
-                count = uiState.coins.size,
-                itemContent = {
-                    CoinListItem(uiState.coins[it]) { coin ->
-                        onCoinSelected(coin.id)
-                    }
-                },
-            )
-        }
+        Box(modifier = Modifier.fillMaxSize()) {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(0.5.dp)
+            ) {
+                items(
+                    count = uiState.coins.size,
+                    itemContent = {
+                        CoinListItem(uiState.coins[it]) { coin ->
+                            onCoinSelected(coin.id)
+                        }
+                    },
+                )
+            }
 
-        if(uiState.error.isNotBlank()) {
-            Text(
-                text = uiState.error,
-                color = MaterialTheme.colors.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
-        }
-        if(uiState.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+            if(uiState.error.isNotBlank()) {
+                Text(
+                    text = uiState.error,
+                    color = MaterialTheme.colors.error,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp)
+                        .align(Alignment.Center)
+                )
+            }
+
+            if(uiState.isLoading) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            }
         }
     }
 }

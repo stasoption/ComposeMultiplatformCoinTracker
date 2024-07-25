@@ -7,30 +7,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import ui.components.Shapes
 
-private val DarkColorPalette = darkColors(
-    primary = ColorPrimary,
-    background = DarkGray,
-    onBackground = TextWhite,
-    onPrimary = DarkGray
-)
-
 private val LightColorPalette = lightColors(
-    primary = ColorPrimary,
-    background = Color.White,
-    onBackground = MediumGray,
-    onPrimary = DarkGray
+    primary = DarkGray,
+    secondary = ColorAccent,
+    background = MediumGray,
 )
 
 @Composable
 fun CoinTrackerAppTheme(darkTheme: Boolean = true, content: @Composable() () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
-
     MaterialTheme(
-        colors = colors,
+        colors = LightColorPalette, // <-- TODO: Implement Dark theme
         typography = Typography,
         shapes = Shapes,
         content = content

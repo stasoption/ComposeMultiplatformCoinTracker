@@ -11,7 +11,7 @@ class GetCoinsUseCase(private val repository: CoinsRepository) {
     operator fun invoke(): Flow<ServerResponse<List<Coin>>> = flow {
         try {
             emit(ServerResponse.Loading())
-            val coins = repository.getCoins().map { it.toCoin() }
+            val coins = repository.getCoins().filter { it.isActive }.map { it.toCoin() }
             emit(ServerResponse.Success(coins))
         } catch(e: Exception) {
             emit(ServerResponse.Error(e.message ?: "Unexpected error happened"))

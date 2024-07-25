@@ -24,7 +24,7 @@ class CoinListViewModel(private val getCoinsUseCase: GetCoinsUseCase) : BaseView
                 }
                 is ServerResponse.Error -> {
                     _uiState.value = CoinListUiState(
-                        error = result.message ?: "An unexpected error occured"
+                        error = result.message ?: "Unexpected error happened"
                     )
                 }
                 is ServerResponse.Loading -> {
