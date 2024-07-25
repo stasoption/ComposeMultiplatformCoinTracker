@@ -2,9 +2,11 @@ package di
 
 import CoinListRepositoryImpl
 import CoinListViewModel
+import CoinDetailsViewModel
 import domain.Constants.BASE_URL
 import domain.Constants.URL_PATH
 import domain.repository.CoinsRepository
+import domain.use_case.GetCoinByIdUseCase
 import domain.use_case.GetCoinsUseCase
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
@@ -65,8 +67,11 @@ fun commonModule(enableNetworkLogs: Boolean) = module {
     }
 
     factory { GetCoinsUseCase(repository = get()) }
+    factory { GetCoinByIdUseCase(repository = get()) }
 
     single<CoinsRepository> { CoinListRepositoryImpl(httpClient = get()) }
+
     singleOf(::CoinListViewModel)
+    singleOf(::CoinDetailsViewModel)
 }
 

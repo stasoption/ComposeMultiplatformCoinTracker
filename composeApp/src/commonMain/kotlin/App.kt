@@ -6,6 +6,8 @@ import ui.screens.list.CoinListScreen
 @Composable
 fun App() {
     CoinTrackerAppTheme {
-        CoinListScreen(onCoinSelected = { coinId -> println("coinId=$coinId") })
+        // TODO: Replace with navigation
+        // https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html#sample-project
+        CoinListScreen(onCoinSelected = { coinId -> /*CoinDetailsScreen(coinId)*/ })
     }
 }
