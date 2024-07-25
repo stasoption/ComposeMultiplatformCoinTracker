@@ -4,7 +4,7 @@ import CoinListRepositoryImpl
 import CoinListViewModel
 import domain.Constants.BASE_URL
 import domain.Constants.URL_PATH
-import domain.repository.CoinListRepository
+import domain.repository.CoinsRepository
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
@@ -64,7 +64,7 @@ fun commonModule(enableNetworkLogs: Boolean) = module {
     }
     
 
-    single<CoinListRepository> { CoinListRepositoryImpl(httpClient = get()) }
+    single<CoinsRepository> { CoinListRepositoryImpl(httpClient = get()) }
     singleOf(::CoinListViewModel)
 }
 
