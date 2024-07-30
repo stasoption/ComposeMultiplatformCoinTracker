@@ -1,13 +1,47 @@
 
 import androidx.compose.runtime.*
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import domain.Constants
+import ui.screens.details.CoinDetailsScreen
 import ui.theme.CoinTrackerAppTheme
 import ui.screens.list.CoinListScreen
+
+enum class Screen(val route: String) {
+    Main(route = "main_screen"),
+    Detail(route = "detail_screen")
+}
 
 @Composable
 fun App() {
     CoinTrackerAppTheme {
-        // TODO: Replace with navigation
-        // https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html#sample-project
-        CoinListScreen(onCoinSelected = { coinId -> /*CoinDetailsScreen(coinId)*/ })
+        val navController = rememberNavController()
+        NavHost(
+            navController = navController,
+            startDestination = Screen.Main.route
+        ) {
+            /*
+            * The main screen of the app. It represents the list of coins.
+            * */
+            composable(
+                route = Screen.Main.route
+            ) {
+                CoinListScreen(navController)
+            }
+
+            /*
+            * Coin details screen. It represents the details of a specific coin.
+            * */
+            composable(
+                route = "${Screen.Detail.route}/{${Constants.PARAM_COIN_ID}}",
+                arguments = listOf(navArgument(Constants.PARAM_COIN_ID) { type = NavType.StringType })
+            ) { backStackEntry ->
+                val coinId = backStackEntry.arguments?.getString(Constants.PARAM_COIN_ID)
+                CoinDetailsScreen(requireNotNull(coinId))
+            }
+        }
     }
 }

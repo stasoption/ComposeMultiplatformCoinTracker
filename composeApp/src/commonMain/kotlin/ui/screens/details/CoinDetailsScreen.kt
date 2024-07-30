@@ -38,8 +38,8 @@ fun CoinDetailsScreen(
         )
 
         Box(modifier = Modifier.fillMaxSize()) {
-
-            if(uiState.error.isNotBlank()) {
+            
+            if (uiState.error.isNotBlank()) {
                 Text(
                     text = uiState.error,
                     color = MaterialTheme.colors.error,
@@ -51,7 +51,7 @@ fun CoinDetailsScreen(
                 )
             }
 
-            if(uiState.isLoading) {
+            if (uiState.isLoading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }

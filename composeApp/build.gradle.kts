@@ -51,6 +51,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             
+            implementation(libs.navigation)
             implementation(libs.ktor.client.core)
 //            implementation(libs.ktor.client.websockets)
             implementation(libs.ktor.client.logging)

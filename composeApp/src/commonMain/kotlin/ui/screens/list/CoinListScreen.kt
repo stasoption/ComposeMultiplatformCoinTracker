@@ -13,13 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import org.koin.compose.koinInject
 import ui.screens.list.components.CoinListItem
 
 @Composable
 fun CoinListScreen(
+    navController: NavController,
     viewModel: CoinListViewModel = koinInject(),
-    onCoinSelected: (id: String) -> Unit
 ) {
     val uiState = viewModel.uiState.collectAsState().value
     LaunchedEffect(viewModel) { viewModel.updateCoins() }
@@ -47,13 +48,13 @@ fun CoinListScreen(
                     count = uiState.coins.size,
                     itemContent = {
                         CoinListItem(uiState.coins[it]) { coin ->
-                            onCoinSelected(coin.id)
+                            navController.navigate("${Screen.Detail.route}/${coin.id}")
                         }
                     },
                 )
             }
 
-            if(uiState.error.isNotBlank()) {
+            if (uiState.error.isNotBlank()) {
                 Text(
                     text = uiState.error,
                     color = MaterialTheme.colors.error,
@@ -65,7 +66,7 @@ fun CoinListScreen(
                 )
             }
 
-            if(uiState.isLoading) {
+            if (uiState.isLoading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }

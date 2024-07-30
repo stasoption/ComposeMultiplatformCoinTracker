@@ -12,7 +12,9 @@ data class CoinDetailsUiState(
     val error: String = ""
 )
 
-class CoinDetailsViewModel(private val getCoinByIdUseCase: GetCoinByIdUseCase) : BaseViewModel() {
+class CoinDetailsViewModel(
+    private val getCoinByIdUseCase: GetCoinByIdUseCase
+) : BaseViewModel() {
     private val _uiState = MutableStateFlow(CoinDetailsUiState())
     val uiState = _uiState.asStateFlow()
 

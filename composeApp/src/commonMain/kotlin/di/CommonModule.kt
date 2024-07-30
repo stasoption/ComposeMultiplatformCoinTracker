@@ -29,6 +29,7 @@ fun commonModule(enableNetworkLogs: Boolean) = module {
      * Creates a http client for Ktor that is provided to the
      * API client via constructor injection
      */
+    // TODO Add Retrofit analog
     single {
         HttpClient {
             expectSuccess = true
@@ -66,12 +67,12 @@ fun commonModule(enableNetworkLogs: Boolean) = module {
         }
     }
 
+    singleOf(::CoinListViewModel)
+    singleOf(::CoinDetailsViewModel)
+
     factory { GetCoinsUseCase(repository = get()) }
     factory { GetCoinByIdUseCase(repository = get()) }
 
     single<CoinsRepository> { CoinListRepositoryImpl(httpClient = get()) }
-
-    singleOf(::CoinListViewModel)
-    singleOf(::CoinDetailsViewModel)
 }
 
