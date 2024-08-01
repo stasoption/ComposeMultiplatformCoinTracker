@@ -3,6 +3,8 @@ package di
 import CoinListRepositoryImpl
 import CoinListViewModel
 import CoinDetailsViewModel
+import data.sources.CoinTrackerApi
+import data.sources.CoinTrackerApiImpl
 import domain.Constants.BASE_URL
 import domain.Constants.URL_PATH
 import domain.repository.CoinsRepository
@@ -66,12 +68,14 @@ fun commonModule(enableNetworkLogs: Boolean) = module {
         }
     }
 
+    factory<CoinTrackerApi> { CoinTrackerApiImpl(get()) }
+
     singleOf(::CoinListViewModel)
     singleOf(::CoinDetailsViewModel)
 
     factory { GetCoinsUseCase(repository = get()) }
     factory { GetCoinByIdUseCase(repository = get()) }
 
-    single<CoinsRepository> { CoinListRepositoryImpl(httpClient = get()) }
+    single<CoinsRepository> { CoinListRepositoryImpl(api = get()) }
 }
 
