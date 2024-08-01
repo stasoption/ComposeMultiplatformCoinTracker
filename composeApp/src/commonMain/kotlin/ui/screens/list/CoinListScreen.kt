@@ -14,9 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import cointracker.composeapp.generated.resources.Res
+import cointracker.composeapp.generated.resources.app_name
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import ui.screens.list.components.CoinListItem
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CoinListScreen(
     navController: NavController,
@@ -34,7 +39,7 @@ fun CoinListScreen(
         TopAppBar(
             title = {
                 Text(
-                    text = "CoinTracker",
+                    text = stringResource(Res.string.app_name),
                     style = MaterialTheme.typography.h3,
                 )
             }

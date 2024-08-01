@@ -12,8 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cointracker.composeapp.generated.resources.Res
+import cointracker.composeapp.generated.resources.app_name
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CoinDetailsScreen(
     coinId: String,
@@ -31,13 +36,23 @@ fun CoinDetailsScreen(
         TopAppBar(
             title = {
                 Text(
-                    text = uiState.coin?.name ?: "Coin Details",
+                    text = uiState.coin?.name ?: stringResource(Res.string.app_name),
                     style = MaterialTheme.typography.h3,
                 )
             }
         )
 
         Box(modifier = Modifier.fillMaxSize()) {
+
+            Text(
+                text = uiState.coin?.description ?: "",
+                style = MaterialTheme.typography.body1,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp)
+                    .align(Alignment.Center)
+            )
             
             if (uiState.error.isNotBlank()) {
                 Text(

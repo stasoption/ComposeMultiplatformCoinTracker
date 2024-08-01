@@ -29,7 +29,6 @@ fun commonModule(enableNetworkLogs: Boolean) = module {
      * Creates a http client for Ktor that is provided to the
      * API client via constructor injection
      */
-    // TODO Add Retrofit analog
     single {
         HttpClient {
             expectSuccess = true

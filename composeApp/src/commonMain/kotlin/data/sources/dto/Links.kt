@@ -5,11 +5,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Links(
-    val explorer: List<String>,
-    val facebook: List<String>,
-    val reddit: List<String>,
+    val explorer: List<String>? = null,
+    val facebook: List<String>? = null,
+    val reddit: List<String>? = null,
     @SerialName("source_code")
-    val sourceCode: List<String>,
-    val website: List<String>,
-    val youtube: List<String>
+    val sourceCode: List<String>? = null,
+    val website: List<String>? = null,
+    val youtube: List<String>? = null
 )

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">CoinTracker</string>
 
-    <string name="title_home">Home</string>
-
+    <string name="coin_details">Coin Details</string>
 </resources>

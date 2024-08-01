@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Tag(
     @SerialName("coin_counter")
-    val coinCounter: Int,
+    val coinCounter: Int? = null,
     @SerialName("ico_counter")
-    val icoCounter: Int,
-    val id: String,
-    val name: String
+    val icoCounter: Int? = null,
+    val id: String? = null,
+    val name: String? = null
 )

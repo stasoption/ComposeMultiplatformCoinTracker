@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LinksExtended(
-    val stats: Stats,
-    val type: String,
-    val url: String
+    val stats: Stats? = null,
+    val type: String? = null,
+    val url: String? = null
 )

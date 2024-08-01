@@ -16,7 +16,7 @@ private val LightColorPalette = lightColors(
 @Composable
 fun CoinTrackerAppTheme(darkTheme: Boolean = true, content: @Composable() () -> Unit) {
     MaterialTheme(
-        colors = LightColorPalette, // <-- TODO: Implement Dark theme
+        colors = LightColorPalette,
         typography = Typography,
         shapes = Shapes,
         content = content
