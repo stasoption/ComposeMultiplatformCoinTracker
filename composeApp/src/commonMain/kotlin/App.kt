@@ -18,7 +18,6 @@ import ui.screens.list.CoinListScreen
 // Profile screen
 // Main Screen: State, Refresh the page, scroll to top button, menu
 // Add lints, tests
-
 // support desktop version
 
 enum class Screen(val route: String) {

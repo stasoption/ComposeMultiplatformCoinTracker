@@ -36,6 +36,7 @@ kotlin {
         val desktopMain by getting
         
         androidMain.dependencies {
+            implementation(libs.core.splashscreen)
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
