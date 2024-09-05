@@ -1,6 +1,7 @@
 package ui.screens.list
 
 import CoinListViewModel
+import SearchPanel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -43,6 +44,11 @@ fun CoinListScreen(
                     style = MaterialTheme.typography.h3,
                 )
             }
+        )
+
+        SearchPanel(
+            onSearchTextChange = { viewModel.searchQuery = it },
+            onSearchClear = { viewModel.searchQuery = "" }
         )
 
         Box(modifier = Modifier.fillMaxSize()) {

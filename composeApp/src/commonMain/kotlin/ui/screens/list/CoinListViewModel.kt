@@ -13,14 +13,23 @@ data class CoinListUiState(
 )
 
 class CoinListViewModel(private val getCoinsUseCase: GetCoinsUseCase) : BaseViewModel() {
+
     private val _uiState = MutableStateFlow(CoinListUiState(emptyList()))
     val uiState = _uiState.asStateFlow()
+
+    var searchQuery: String = ""
+        set(value) {
+            field = value
+            // TODO -> update coins list
+        }
 
     fun updateCoins() = launchIO {
         getCoinsUseCase().collectLatest { result ->
             when (result) {
                 is ServerResponse.Success -> {
-                    _uiState.value = CoinListUiState(coins = result.data ?: emptyList())
+                    _uiState.value = CoinListUiState(
+                        coins = result.data?.filter { it.filterBySearchQuery() } ?: emptyList()
+                    )
                 }
                 is ServerResponse.Error -> {
                     _uiState.value = CoinListUiState(
@@ -32,5 +41,11 @@ class CoinListViewModel(private val getCoinsUseCase: GetCoinsUseCase) : BaseView
                 }
             }
         }
+    }
+
+    private fun Coin.filterBySearchQuery(): Boolean {
+        if (searchQuery.isEmpty()) return true
+        return this.name.lowercase().contains(searchQuery.lowercase()) ||
+            this.symbol.lowercase().contains(searchQuery.lowercase())
     }
 }

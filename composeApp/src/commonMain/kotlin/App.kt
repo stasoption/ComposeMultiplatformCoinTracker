@@ -11,14 +11,13 @@ import ui.theme.CoinTrackerAppTheme
 import ui.screens.list.CoinListScreen
 
 // TODO List:
-// Add Retrofit analog for compose
+// Main Screen: Store Screen State, Refresh the page (swipe or so), scroll to top button, menu, pagination, Search panel
 // Implement Dark theme (Theme.kt)
-// Add Splash screen
 // Add login screen
 // Profile screen
-// Main Screen: State, Refresh the page, scroll to top button, menu
 // Add lints, tests
 // support desktop version
+// Shimmer background effect
 
 enum class Screen(val route: String) {
     Main(route = "main_screen"),
