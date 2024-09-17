@@ -88,7 +88,10 @@ fun SearchPanel(
                 imeAction = ImeAction.Search
             ),
             keyboardActions = KeyboardActions(
-                onSearch = { onSearchTextChange.invoke(text.value) }
+                onSearch = {
+                    keyboardController?.hide()
+                    onSearchTextChange.invoke(text.value)
+                }
             )
         )
     }

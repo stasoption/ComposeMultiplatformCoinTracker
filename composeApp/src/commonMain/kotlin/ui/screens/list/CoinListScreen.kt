@@ -2,6 +2,7 @@ package ui.screens.list
 
 import CoinListViewModel
 import ErrorText
+import PaginatedLazyColumn
 import SearchPanel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -56,6 +57,7 @@ fun CoinListScreen(
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
+
             LazyColumn(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp)

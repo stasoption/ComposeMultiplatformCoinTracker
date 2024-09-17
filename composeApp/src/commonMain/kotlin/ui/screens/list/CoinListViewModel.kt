@@ -17,18 +17,23 @@ class CoinListViewModel(private val getCoinsUseCase: GetCoinsUseCase) : BaseView
     private val _uiState = MutableStateFlow(CoinListUiState(emptyList()))
     val uiState = _uiState.asStateFlow()
 
+    private var sourceCoins: List<Coin> = listOf()
+
     var searchQuery: String = ""
         set(value) {
             field = value
-            // TODO -> update coins list
+            _uiState.value = CoinListUiState(
+                coins = sourceCoins.filter { it.filterBySearchQuery() }
+            )
         }
 
     fun updateCoins() = launchIO {
         getCoinsUseCase().collectLatest { result ->
             when (result) {
                 is ServerResponse.Success -> {
+                    sourceCoins = result.data.orEmpty()
                     _uiState.value = CoinListUiState(
-                        coins = result.data?.filter { it.filterBySearchQuery() } ?: emptyList()
+                        coins = sourceCoins.filter { it.filterBySearchQuery() }
                     )
                 }
                 is ServerResponse.Error -> {
