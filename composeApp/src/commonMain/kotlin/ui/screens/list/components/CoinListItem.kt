@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import domain.model.Coin
+import ui.theme.DarkGray
 import ui.theme.TextPrimary
 import ui.theme.TextSecondary
 
@@ -27,8 +28,8 @@ fun CoinListItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onItemClick(coin) }
-            .background(MaterialTheme.colors.primary)
-            .padding(16.dp),
+            .background(DarkGray)
+            .padding(top = 16.dp, bottom = 16.dp),
         verticalAlignment = CenterVertically
     ) {
         println("$coin")
