@@ -33,7 +33,8 @@ class CoinListViewModel(private val getCoinsUseCase: GetCoinsUseCase) : BaseView
                 is ServerResponse.Success -> {
                     sourceCoins = result.data.orEmpty()
                     _uiState.value = CoinListUiState(
-                        coins = sourceCoins.filter { it.filterBySearchQuery() }
+                        coins = sourceCoins
+                            .filter { it.filterBySearchQuery() }
                     )
                 }
                 is ServerResponse.Error -> {
