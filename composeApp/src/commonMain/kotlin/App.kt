@@ -1,5 +1,6 @@
 
 import androidx.compose.runtime.*
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,12 +19,16 @@ import ui.screens.list.CoinListScreen
 //      4-menu,
 //      5-pagination (https://github.com/Ahmad-Hamwi/lazy-pagination-compose),
 //      6-Search panel (done)
+//      7-Freezes
+//      8-filters
 // Implement Dark theme (Theme.kt)
 // Add login screen
 // Profile screen
 // Add lints, tests
 // support desktop version
 // Shimmer background effect
+
+// https://api.coinpaprika.com/v1/coins
 
 enum class Screen(val route: String) {
     Main(route = "main_screen"),
@@ -33,7 +38,7 @@ enum class Screen(val route: String) {
 @Composable
 fun App() {
     CoinTrackerAppTheme {
-        val navController = rememberNavController()
+        val navController: NavHostController = rememberNavController()
         NavHost(
             navController = navController,
             startDestination = Screen.Main.route
@@ -55,7 +60,7 @@ fun App() {
                 arguments = listOf(navArgument(Constants.PARAM_COIN_ID) { type = NavType.StringType })
             ) { backStackEntry ->
                 val coinId = backStackEntry.arguments?.getString(Constants.PARAM_COIN_ID)
-                CoinDetailsScreen(requireNotNull(coinId))
+                CoinDetailsScreen(requireNotNull(coinId), navController)
             }
         }
     }

@@ -6,12 +6,14 @@ import SearchPanel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,6 +25,7 @@ import cointracker.composeapp.generated.resources.app_name
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
+import ui.components.CoinListLazyColumn
 import ui.components.ProgressBar
 import ui.screens.list.components.CoinListItem
 import ui.theme.ColorAccent
@@ -68,24 +71,10 @@ fun CoinListScreen(
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-
-            LazyColumn(
-                modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp)
-                    .background(ColorAccent),
-                verticalArrangement = Arrangement.spacedBy(0.5.dp)
-            ) {
-                items(
-                    count = uiState.coins.size,
-                    key = { uiState.coins[it].id },
-                    itemContent = {
-                        CoinListItem(uiState.coins[it]) { coin ->
-                            navController.navigate("${Screen.Detail.route}/${coin.id}")
-                        }
-                    },
-                )
-            }
-
+            CoinListLazyColumn(
+                coins = uiState.coins,
+                navController = navController
+            )
             ErrorText(uiState.error)
             ProgressBar(uiState.isLoading)
         }

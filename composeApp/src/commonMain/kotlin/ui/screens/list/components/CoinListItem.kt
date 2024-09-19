@@ -17,7 +17,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import cointracker.composeapp.generated.resources.Res
+import cointracker.composeapp.generated.resources.active
+import cointracker.composeapp.generated.resources.inactive
+import cointracker.composeapp.generated.resources.new
+import cointracker.composeapp.generated.resources.no
+import cointracker.composeapp.generated.resources.status
+import cointracker.composeapp.generated.resources.yes
 import domain.model.Coin
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import ui.theme.DarkGray
 import ui.theme.TextError
@@ -25,6 +34,7 @@ import ui.theme.TextPrimary
 import ui.theme.TextSecondary
 import ui.theme.TextSuccess
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CoinListItem(
     coin: Coin,
@@ -69,14 +79,14 @@ fun CoinListItem(
         Row(verticalAlignment = CenterVertically) {
 
             Text(
-                text = "New ${coin.type}: ",
+                text = "${stringResource(Res.string.new)} ${coin.type}: ",
                 color = TextSecondary,
                 style = MaterialTheme.typography.body2,
                 fontWeight = FontWeight.Normal
             )
 
             Text(
-                text = if (coin.isNew) "Yes" else "No",
+                text = if (coin.isNew) stringResource(Res.string.yes) else stringResource(Res.string.no),
                 color = TextPrimary,
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight.Bold
@@ -85,14 +95,14 @@ fun CoinListItem(
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = "Status: ",
+                text = "${stringResource(Res.string.status)}: ",
                 color = TextSecondary,
                 style = MaterialTheme.typography.body2,
                 fontWeight = FontWeight.Normal
             )
 
             Text(
-                text = if (coin.isActive) "Active" else "Inactive",
+                text = if (coin.isActive) stringResource(Res.string.active) else stringResource(Res.string.inactive),
                 color = if (coin.isActive) TextSuccess else TextError,
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight.Bold
