@@ -1,4 +1,4 @@
-package ui.components
+package ui.screens.list.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import domain.model.Coin
 import kotlinx.coroutines.launch
-import ui.screens.list.components.CoinListItem
 import ui.theme.ColorAccent
 import ui.theme.DarkGray
 
