@@ -13,8 +13,6 @@ import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,11 +25,16 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import cointracker.composeapp.generated.resources.Res
+import cointracker.composeapp.generated.resources.arrow_upward
 import domain.model.Coin
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 import ui.theme.ColorAccent
 import ui.theme.DarkGray
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CoinListLazyColumn(
     coins: List<Coin>,
@@ -54,8 +57,6 @@ fun CoinListLazyColumn(
                 if (available.y > 1) {
                     isFabVisible.value = false
                 }
-
-                println("available.y: ${available.y}")
                 return Offset.Zero
             }
         }
@@ -78,12 +79,11 @@ fun CoinListLazyColumn(
                         isFabVisible.value = false
                     }},
                 ) {
-                    Icon(Icons.AutoMirrored.Filled.List, "Floating action button.")
+                    Icon(painterResource(Res.drawable.arrow_upward), "Scroll to top button FAB.")
                 }
             }
         }
     ) { innerPadding ->
-
         LazyColumn(
             state = listState,
             modifier = Modifier
@@ -106,6 +106,5 @@ fun CoinListLazyColumn(
                 }
             )
         }
-
     }
 }

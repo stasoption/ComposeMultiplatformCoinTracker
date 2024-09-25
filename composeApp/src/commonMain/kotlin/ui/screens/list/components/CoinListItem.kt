@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -45,6 +46,10 @@ import ui.theme.TextPrimary
 import ui.theme.TextSecondary
 import ui.theme.TextSuccess
 
+private const val SHIMMER_ITEM_LONG_WIDTH = 60
+private const val SHIMMER_ITEM_SHORT_WIDTH = 40
+private const val SHIMMER_ITEM_HEIGHT = 16
+
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CoinListItem(
@@ -60,13 +65,14 @@ fun CoinListItem(
     ) {
         Row(verticalAlignment = CenterVertically) {
             Text(
+                modifier = Modifier.widthIn(max = 200.dp),
                 text = coin.name,
                 color = TextPrimary,
                 style = MaterialTheme.typography.body1,
+                maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 fontWeight = FontWeight.Bold,
             )
-
             Text(
                 text = coin.symbol,
                 color = TextSecondary,
@@ -159,8 +165,8 @@ fun CoinShimmerItem() {
             // Name
             Spacer(
                 modifier = Modifier
-                    .width(50.dp)
-                    .height(16.dp)
+                    .width(SHIMMER_ITEM_LONG_WIDTH.dp)
+                    .height(SHIMMER_ITEM_HEIGHT.dp)
                     .background(brush = brush, shape = RoundedCornerShape(4.dp))
             )
 
@@ -169,8 +175,8 @@ fun CoinShimmerItem() {
             // Symbol
             Spacer(
                 modifier = Modifier
-                    .width(30.dp)
-                    .height(16.dp)
+                    .width(SHIMMER_ITEM_SHORT_WIDTH.dp)
+                    .height(SHIMMER_ITEM_HEIGHT.dp)
                     .background(brush = brush, shape = RoundedCornerShape(4.dp))
             )
 
@@ -179,8 +185,8 @@ fun CoinShimmerItem() {
             // Type title
             Spacer(
                 modifier = Modifier
-                    .width(50.dp)
-                    .height(16.dp)
+                    .width(SHIMMER_ITEM_LONG_WIDTH.dp)
+                    .height(SHIMMER_ITEM_HEIGHT.dp)
                     .background(brush = brush, shape = RoundedCornerShape(4.dp))
             )
 
@@ -189,8 +195,8 @@ fun CoinShimmerItem() {
             // Type value
             Spacer(
                 modifier = Modifier
-                    .width(30.dp)
-                    .height(16.dp)
+                    .width(SHIMMER_ITEM_SHORT_WIDTH.dp)
+                    .height(SHIMMER_ITEM_HEIGHT.dp)
                     .background(brush = brush, shape = RoundedCornerShape(4.dp))
             )
         }
@@ -202,8 +208,8 @@ fun CoinShimmerItem() {
             // New coin title
             Spacer(
                 modifier = Modifier
-                    .width(30.dp)
-                    .height(16.dp)
+                    .width(SHIMMER_ITEM_SHORT_WIDTH.dp)
+                    .height(SHIMMER_ITEM_HEIGHT.dp)
                     .background(brush = brush, shape = RoundedCornerShape(4.dp))
             )
 
@@ -212,8 +218,8 @@ fun CoinShimmerItem() {
             // New coin value
             Spacer(
                 modifier = Modifier
-                    .width(50.dp)
-                    .height(16.dp)
+                    .width(SHIMMER_ITEM_LONG_WIDTH.dp)
+                    .height(SHIMMER_ITEM_HEIGHT.dp)
                     .background(brush = brush, shape = RoundedCornerShape(4.dp))
             )
 
@@ -222,8 +228,8 @@ fun CoinShimmerItem() {
             // Status title
             Spacer(
                 modifier = Modifier
-                    .width(30.dp)
-                    .height(16.dp)
+                    .width(SHIMMER_ITEM_SHORT_WIDTH.dp)
+                    .height(SHIMMER_ITEM_HEIGHT.dp)
                     .background(brush = brush, shape = RoundedCornerShape(4.dp))
             )
 
@@ -232,11 +238,10 @@ fun CoinShimmerItem() {
             // Status value
             Spacer(
                 modifier = Modifier
-                    .width(50.dp)
-                    .height(16.dp)
+                    .width(SHIMMER_ITEM_LONG_WIDTH.dp)
+                    .height(SHIMMER_ITEM_HEIGHT.dp)
                     .background(brush = brush, shape = RoundedCornerShape(4.dp))
             )
         }
     }
-
 }

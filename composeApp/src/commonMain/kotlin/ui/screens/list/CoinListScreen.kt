@@ -22,7 +22,6 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import ui.screens.list.components.CoinListLazyColumn
-import ui.components.ProgressBar
 import ui.theme.DarkGray
 import ui.theme.TextPrimary
 
@@ -71,7 +70,6 @@ fun CoinListScreen(
                 navController = navController
             )
             ErrorText(uiState.error)
-//            ProgressBar(uiState.isLoading)
         }
     }
 }
