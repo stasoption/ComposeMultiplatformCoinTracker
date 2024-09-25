@@ -16,7 +16,7 @@ import ui.screens.list.CoinListScreen
 //      1-Store Screen State, (done)
 //      2-Refresh the page (swipe or so),
 //      3-scroll to top button, (done)
-//      4-menu,
+//      4-menu, (done)
 //      5-pagination (https://github.com/Ahmad-Hamwi/lazy-pagination-compose),
 //      6-Search panel (done)
 //      7-Freezes
