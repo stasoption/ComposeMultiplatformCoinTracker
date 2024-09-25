@@ -1,5 +1,3 @@
-interface Platform {
-    val name: String
+expect class Platform() {
+    val randomUUID: String
 }
-
-expect fun getPlatform(): Platform

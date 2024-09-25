@@ -1,5 +1,6 @@
 package ui.screens.list.components
 
+import Platform
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -34,23 +35,24 @@ import ui.theme.DarkGray
 @Composable
 fun CoinListLazyColumn(
     coins: List<Coin>,
-    navController: NavController,
+    isLoading: Boolean,
+    navController: NavController
 ) {
 
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
-    val isVisible = rememberSaveable { mutableStateOf(false) }
+    val isFabVisible = rememberSaveable { mutableStateOf(false) }
 
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 // Show FAB
                 if (available.y < -1) {
-                    isVisible.value = true
+                    isFabVisible.value = true
                 }
                 // Hide FAB
                 if (available.y > 1) {
-                    isVisible.value = false
+                    isFabVisible.value = false
                 }
 
                 println("available.y: ${available.y}")
@@ -65,7 +67,7 @@ fun CoinListLazyColumn(
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             AnimatedVisibility(
-                visible = isVisible.value,
+                visible = isFabVisible.value,
                 enter = slideInVertically(initialOffsetY = { it * 2 }),
                 exit = slideOutVertically(targetOffsetY = { it * 2 }),
             ) {
@@ -73,7 +75,7 @@ fun CoinListLazyColumn(
                     contentColor = DarkGray,
                     onClick = { coroutineScope.launch {
                         listState.animateScrollToItem(0)
-                        isVisible.value = false
+                        isFabVisible.value = false
                     }},
                 ) {
                     Icon(Icons.AutoMirrored.Filled.List, "Floating action button.")
@@ -91,11 +93,15 @@ fun CoinListLazyColumn(
             verticalArrangement = Arrangement.spacedBy(0.5.dp)
         ) {
             items(
-                count = coins.size,
-                key = { coins[it].id },
+                count = if (isLoading) 10 else coins.size,
+                key = { if (isLoading) Platform().randomUUID else coins[it].id },
                 itemContent = {
-                    CoinListItem(coins[it]) { coin ->
-                        navController.navigate("${Screen.Detail.route}/${coin.id}")
+                    if (isLoading) {
+                        CoinShimmerItem()
+                    } else {
+                        CoinListItem(coins[it]) { coin ->
+                            navController.navigate("${Screen.Detail.route}/${coin.id}")
+                        }
                     }
                 }
             )

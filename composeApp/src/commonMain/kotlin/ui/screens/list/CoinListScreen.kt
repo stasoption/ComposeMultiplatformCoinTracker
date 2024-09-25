@@ -67,10 +67,11 @@ fun CoinListScreen(
         ) {
             CoinListLazyColumn(
                 coins = uiState.coins,
+                isLoading = uiState.isLoading,
                 navController = navController
             )
             ErrorText(uiState.error)
-            ProgressBar(uiState.isLoading)
+//            ProgressBar(uiState.isLoading)
         }
     }
 }

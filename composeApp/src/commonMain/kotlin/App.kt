@@ -13,14 +13,15 @@ import ui.screens.list.CoinListScreen
 
 // TODO List:
 // Main Screen:
-//      1-Store Screen State,
+//      1-Store Screen State, (done)
 //      2-Refresh the page (swipe or so),
-//      3-scroll to top button,
+//      3-scroll to top button, (done)
 //      4-menu,
 //      5-pagination (https://github.com/Ahmad-Hamwi/lazy-pagination-compose),
 //      6-Search panel (done)
 //      7-Freezes
 //      8-filters
+//      9-shimmer effect (done)
 // Implement Dark theme (Theme.kt)
 // Add login screen
 // Profile screen

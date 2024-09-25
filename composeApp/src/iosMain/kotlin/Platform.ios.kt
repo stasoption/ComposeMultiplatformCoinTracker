@@ -1,7 +1,6 @@
-import platform.UIKit.UIDevice
+import platform.Foundation.NSUUID
 
-class IOSPlatform: Platform {
-    override val name: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
+actual class Platform {
+    actual val randomUUID: String
+        get() = NSUUID().UUIDString
 }
-
-actual fun getPlatform(): Platform = IOSPlatform()
