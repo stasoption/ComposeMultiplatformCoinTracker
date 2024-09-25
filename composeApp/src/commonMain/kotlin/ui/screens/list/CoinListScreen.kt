@@ -22,6 +22,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import ui.screens.list.components.CoinListLazyColumn
+import ui.screens.list.components.CoinListScreenMenu
 import ui.theme.DarkGray
 import ui.theme.TextPrimary
 
@@ -31,6 +32,7 @@ fun CoinListScreen(
     navController: NavController,
     viewModel: CoinListViewModel = koinInject(),
 ) {
+    var menuExpanded by remember { mutableStateOf(false) }
     val uiState = viewModel.uiState.collectAsState().value
     LaunchedEffect(viewModel) { viewModel.updateCoins() }
 
@@ -49,21 +51,22 @@ fun CoinListScreen(
             },
             contentColor = TextPrimary,
             actions = {
-                IconButton(onClick = { /* Handle action click */ }) {
+                IconButton(onClick = { menuExpanded = true }) {
                     Icon(Icons.Filled.Menu, contentDescription = "Search")
                 }
             }
-
         )
+
+        CoinListScreenMenu(menuExpanded) {
+            menuExpanded = false
+        }
 
         SearchPanel(
             onSearchTextChange = { viewModel.searchQuery = it },
             onSearchClear = { viewModel.searchQuery = "" }
         )
 
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ) {
+        Box(modifier = Modifier.fillMaxSize()) {
             CoinListLazyColumn(
                 coins = uiState.coins,
                 isLoading = uiState.isLoading,
