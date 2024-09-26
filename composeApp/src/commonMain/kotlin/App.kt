@@ -29,7 +29,7 @@ import ui.screens.list.CoinListScreen
 // support desktop version
 // Shimmer background effect
 
-// https://api.coinpaprika.com/v1/coins
+// API: https://api.coinpaprika.com/#tag/Coins
 
 enum class Screen(val route: String) {
     Main(route = "main_screen"),

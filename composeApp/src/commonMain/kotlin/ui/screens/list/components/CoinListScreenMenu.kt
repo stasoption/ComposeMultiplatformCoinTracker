@@ -19,7 +19,7 @@ import cointracker.composeapp.generated.resources.Res
 import cointracker.composeapp.generated.resources.about
 import cointracker.composeapp.generated.resources.help_center
 import cointracker.composeapp.generated.resources.settings
-import mediumIconSize
+import MediumIcon
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -43,7 +43,7 @@ fun CoinListScreenMenu(
                     Icon(
                         Icons.Filled.Settings,
                         contentDescription = stringResource(Res.string.settings),
-                        modifier = Modifier.size(mediumIconSize)
+                        modifier = Modifier.size(MediumIcon)
                     )
                     Text(
                         text = stringResource(Res.string.settings),
@@ -54,7 +54,7 @@ fun CoinListScreenMenu(
             DropdownMenuItem(onClick = { onDismiss.invoke() /* TODO About */ }) {
                 Row {
                     Icon(
-                        modifier = Modifier.size(mediumIconSize),
+                        modifier = Modifier.size(MediumIcon),
                         painter = painterResource(Res.drawable.help_center),
                         contentDescription = stringResource(Res.string.settings)
                     )

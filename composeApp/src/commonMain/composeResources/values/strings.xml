@@ -15,4 +15,6 @@
     <string name="empty_search_result_title">Nothing Found</string>
     <string name="empty_search_result_message">Edit your search and try again.</string>
     <string name="favorite_coins">Here will be shown your favorite coins.</string>
+    <string name="description">Description</string>
+    <string name="tags">Tags</string>
 </resources>

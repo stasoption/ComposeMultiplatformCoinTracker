@@ -48,7 +48,7 @@ fun EmptyState(
                 contentDescription = "Empty state image",
                 modifier = Modifier.width(150.dp).height(150.dp)
             )
-            Spacer(modifier = Modifier.fillMaxWidth().height(bigPadding))
+            Spacer(modifier = Modifier.fillMaxWidth().height(BigPadding))
             Text(
                 text = title,
                 color = titleColor,
@@ -56,9 +56,9 @@ fun EmptyState(
                 style = MaterialTheme.typography.h2,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = largePadding)
+                    .padding(horizontal = LargePadding)
             )
-            Spacer(modifier = Modifier.fillMaxWidth().height(mediumPadding))
+            Spacer(modifier = Modifier.fillMaxWidth().height(MediumPadding))
             Text(
                 text = message,
                 color = messageColor,
@@ -66,7 +66,7 @@ fun EmptyState(
                 style = MaterialTheme.typography.h4,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = largePadding)
+                    .padding(horizontal = LargePadding)
             )
             Spacer(modifier = Modifier.fillMaxWidth().height(54.dp))
         }
