@@ -28,6 +28,7 @@ import androidx.navigation.NavController
 import cointracker.composeapp.generated.resources.Res
 import cointracker.composeapp.generated.resources.arrow_upward
 import domain.model.Coin
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -75,7 +76,7 @@ fun CoinListLazyColumn(
                 FloatingActionButton(
                     contentColor = DarkGray,
                     onClick = { coroutineScope.launch {
-                        listState.animateScrollToItem(0)
+                        listState.scrollToItem(0)
                         isFabVisible.value = false
                     }},
                 ) {
@@ -92,6 +93,7 @@ fun CoinListLazyColumn(
                 .nestedScroll(nestedScrollConnection),
             verticalArrangement = Arrangement.spacedBy(0.5.dp)
         ) {
+            Napier.d(tag = "Coin List:", message = coins.joinToString(separator = ",") { it.symbol })
             items(
                 count = if (isLoading) 10 else coins.size,
                 key = { if (isLoading) Platform().randomUUID else coins[it].id },
