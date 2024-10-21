@@ -24,6 +24,7 @@ import ui.screens.list.CoinListScreen
 //      9-shimmer effect (done)
 //  Details Screen:
 //      1-Fake chart
+//      2-Shimmer placeholder (done)
 // Improve navigation (Graph flow + tabs + callbacks)
 // Implement Dark theme (Theme.kt)
 // Add login screen
@@ -31,7 +32,6 @@ import ui.screens.list.CoinListScreen
 // Profile screen
 // Add lints, tests
 // Support desktop version
-// Shimmer background effect
 
 // API: https://api.coinpaprika.com/#tag/Coins
 
