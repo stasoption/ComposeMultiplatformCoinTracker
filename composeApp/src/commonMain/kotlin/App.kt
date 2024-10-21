@@ -22,19 +22,18 @@ import ui.screens.list.CoinListScreen
 //      7-Freezes
 //      8-filters
 //      9-shimmer effect (done)
+//  Details Screen:
+//      1-Fake chart
+// Improve navigation (Graph flow + tabs + callbacks)
 // Implement Dark theme (Theme.kt)
 // Add login screen
+// Add About screen (tab)
 // Profile screen
 // Add lints, tests
-// support desktop version
+// Support desktop version
 // Shimmer background effect
 
 // API: https://api.coinpaprika.com/#tag/Coins
-
-enum class Screen(val route: String) {
-    Main(route = "main_screen"),
-    Detail(route = "detail_screen")
-}
 
 @Composable
 fun App() {
@@ -50,7 +49,9 @@ fun App() {
             composable(
                 route = Screen.Main.route
             ) {
-                CoinListScreen(navController)
+                CoinListScreen(onNavigateNext = { coinId ->
+                    navController.navigateToDetailsScreen(coinId)
+                })
             }
 
             /*
@@ -61,8 +62,18 @@ fun App() {
                 arguments = listOf(navArgument(Constants.PARAM_COIN_ID) { type = NavType.StringType })
             ) { backStackEntry ->
                 val coinId = backStackEntry.arguments?.getString(Constants.PARAM_COIN_ID)
-                CoinDetailsScreen(requireNotNull(coinId), navController)
+                CoinDetailsScreen(
+                    coinId = requireNotNull(coinId),
+                    onBackClick = { navController.popBackStack() }
+                )
             }
         }
     }
+}
+
+fun NavHostController.navigateToDetailsScreen(coinId: String) = this.navigate("${Screen.Detail.route}/${coinId}")
+
+enum class Screen(val route: String) {
+    Main(route = "main_screen"),
+    Detail(route = "detail_screen")
 }

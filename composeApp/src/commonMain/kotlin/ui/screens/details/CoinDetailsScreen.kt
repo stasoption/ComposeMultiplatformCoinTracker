@@ -45,7 +45,7 @@ import ui.theme.TextSecondary
 @Composable
 fun CoinDetailsScreen(
     coinId: String,
-    navController: NavController,
+    onBackClick: () -> Unit,
     viewModel: CoinDetailsViewModel = koinInject()
 ) {
     val uiState = viewModel.uiState.collectAsState().value
@@ -68,7 +68,7 @@ fun CoinDetailsScreen(
             contentColor = TextPrimary,
             navigationIcon = {
                 IconButton(
-                    onClick = { navController.popBackStack() }
+                    onClick = { onBackClick.invoke() }
                 ) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Menu")
                 }

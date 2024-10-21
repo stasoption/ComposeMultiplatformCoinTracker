@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import cointracker.composeapp.generated.resources.Res
 import cointracker.composeapp.generated.resources.app_name
 import cointracker.composeapp.generated.resources.empty_search_result_message
@@ -31,7 +30,7 @@ import ui.theme.TextPrimary
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CoinListScreen(
-    navController: NavController,
+    onNavigateNext: (coinId: String) -> Unit,
     viewModel: CoinListViewModel = koinInject(),
 ) {
     var menuExpanded by remember { mutableStateOf(false) }
@@ -68,7 +67,7 @@ fun CoinListScreen(
             CoinListLazyColumn(
                 coins = uiState.coins,
                 isLoading = uiState.isLoading,
-                navController = navController
+                onNavigateNext = onNavigateNext
             )
             EmptyState(
                 isVisible = uiState.isLoading.not() && uiState.coins.isEmpty(),

@@ -24,7 +24,6 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import cointracker.composeapp.generated.resources.Res
 import cointracker.composeapp.generated.resources.arrow_upward
 import domain.model.Coin
@@ -40,7 +39,7 @@ import ui.theme.DarkGray
 fun CoinListLazyColumn(
     coins: List<Coin>,
     isLoading: Boolean,
-    navController: NavController
+    onNavigateNext: (coinId: String) -> Unit
 ) {
 
     val listState = rememberLazyListState()
@@ -102,7 +101,7 @@ fun CoinListLazyColumn(
                         CoinShimmerItem()
                     } else {
                         CoinListItem(coins[it]) { coin ->
-                            navController.navigate("${Screen.Detail.route}/${coin.id}")
+                            onNavigateNext.invoke(coin.id)
                         }
                     }
                 }
