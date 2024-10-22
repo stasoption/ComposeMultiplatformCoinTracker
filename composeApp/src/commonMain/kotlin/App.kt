@@ -7,6 +7,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -68,7 +69,7 @@ fun App() {
         val navController: NavHostController = rememberNavController()
         Scaffold(
             bottomBar = {
-                BottomNavigation {
+                BottomNavigation(elevation = SmallPadding) {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentDestination = navBackStackEntry?.destination
                     topLevelRoutes.forEach { topLevelRoute ->
